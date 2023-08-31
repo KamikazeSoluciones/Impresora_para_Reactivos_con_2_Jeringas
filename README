@@ -1,0 +1,69 @@
+Este código es un programa escrito en lenguaje de programación C++ para un Arduino. Su propósito es controlar 2 motores mediante un controlador L298N, 
+y también mostrar información en una pantalla LCD utilizando el protocolo I2C.
+
+Aquí tienes una explicación detallada del código:
+
+1. INCLUSIONES DE LIBRERÍAS:
+   
+   #include <LiquidCrystal_I2C.h>
+   #include <Wire.h>
+   
+   - `LiquidCrystal_I2C.h`: Esta librería permite controlar pantallas LCD mediante la comunicación I2C.
+   - `Wire.h`: Esta librería permite la comunicación I2C con dispositivos externos.
+
+2. INICIALIZACIÓN DE LA PANTALLA LCD:
+  
+   LiquidCrystal_I2C lcd(0x27, 16, 2);
+   
+   Se inicializa un objeto `lcd` de la clase `LiquidCrystal_I2C`. Se configura para trabajar con una pantalla LCD que tiene una dirección I2C de `0x27` 
+y tiene 16 columnas y 2 filas.
+
+3. DEFINICIÓN DE PINES:
+   
+   int inches = 0;
+   int ENPin = 5;
+   int val = 0;
+   
+   - `ENPin`: Este es el número del pin al que se conecta el control de habilitación (Enable) del motor.
+  
+4. CONFIGURACIÓN INICIAL EN LA FUNCIÓN `setup()`:
+   
+   void setup()
+   {
+     Serial.begin(9600);
+     pinMode(4, OUTPUT); //ENA
+     pinMode(5, OUTPUT); //IN1
+     // ...
+     lcd.init();
+     lcd.setBacklight(HIGH);
+   }
+
+   - Se inicia la comunicación serie a una velocidad de 9600 baudios.
+   - Se configuran los pines 4, 5, 6, 10, 11 y 12 como salidas. Estos pines parecen estar conectados al controlador L298N para controlar los motores.
+
+5. BUCLE PRINCIPAL EN LA FUNCIÓN `loop()`:
+   
+   void loop()
+   {
+     double inputValue = analogRead(A0);
+     double a = inputValue / 1023 * 255;
+     // ...
+     analogWrite(ENPin, 0);
+     // ...
+     lcd.setCursor(0, 0);
+     lcd.print("Vel.Impresion ");
+     // ...
+     lcd.print(a);
+     // ...
+     digitalWrite(4, HIGH);
+     digitalWrite(5, LOW);
+     // ...
+     analogWrite(12, a);
+     // ...
+     Serial.println("on");
+   }
+  
+   - Se lee el valor analógico presente en el pin A0 y se convierte en un valor entre 0 y 255 (escala de 8 bits) que se almacena en la variable `a`.
+   - Se deshabilita el motor al poner en 0 la señal en el pin definido como `ENPin`.
+   - Se muestra información en la pantalla LCD, mostrando "Vel.Impresion" en la primera línea y el valor de `a` en la segunda línea.
+   - Se activa un motor conectado al controlador L298N ajustando los pines de control según la lógica requerida para su funcionamiento.
