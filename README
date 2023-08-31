@@ -3,7 +3,7 @@ y también mostrar información en una pantalla LCD utilizando el protocolo I2C.
 
 Aquí tienes una explicación detallada del código:
 
-1. Inclusiones de librerías:
+1. INCLUSIONES DE LIBRERÍAS:
    
    #include <LiquidCrystal_I2C.h>
    #include <Wire.h>
@@ -11,14 +11,14 @@ Aquí tienes una explicación detallada del código:
    - `LiquidCrystal_I2C.h`: Esta librería permite controlar pantallas LCD mediante la comunicación I2C.
    - `Wire.h`: Esta librería permite la comunicación I2C con dispositivos externos.
 
-2. Inicialización de la pantalla LCD:
+2. INICIALIZACIÓN DE LA PANTALLA LCD:
   
    LiquidCrystal_I2C lcd(0x27, 16, 2);
    
    Se inicializa un objeto `lcd` de la clase `LiquidCrystal_I2C`. Se configura para trabajar con una pantalla LCD que tiene una dirección I2C de `0x27` 
 y tiene 16 columnas y 2 filas.
 
-3. Definición de pines:
+3. DEFINICIÓN DE PINES:
    
    int inches = 0;
    int ENPin = 5;
@@ -26,7 +26,7 @@ y tiene 16 columnas y 2 filas.
    
    - `ENPin`: Este es el número del pin al que se conecta el control de habilitación (Enable) del motor.
   
-4. Configuración inicial en la función `setup()`:
+4. CONFIGURACIÓN INICIAL EN LA FUNCIÓN `setup()`:
    
    void setup()
    {
@@ -41,7 +41,7 @@ y tiene 16 columnas y 2 filas.
    - Se inicia la comunicación serie a una velocidad de 9600 baudios.
    - Se configuran los pines 4, 5, 6, 10, 11 y 12 como salidas. Estos pines parecen estar conectados al controlador L298N para controlar los motores.
 
-5. Bucle principal en la función `loop()`:
+5. BUCLE PRINCIPAL EN LA FUNCIÓN `loop()`:
    
    void loop()
    {
